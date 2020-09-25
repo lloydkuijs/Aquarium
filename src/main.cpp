@@ -11,10 +11,13 @@
 
 int main(int argc, char* argv[])
 {
+	int show_console = SW_SHOW;
 #if NDEBUG
-	HWND windowHandle = GetConsoleWindow();
-	ShowWindow(windowHandle, SW_HIDE);
+	show_console = SW_HIDE;
 #endif
+
+	HWND windowHandle = GetConsoleWindow();
+	ShowWindow(windowHandle, show_console);
 
 	Game game;
 
