@@ -47,15 +47,17 @@ private:
 	float _movementSpeed;
 	Color _color;
 	std::string _name;
+	Vector2 _size;
 
 public:
-	Fish(const Vector2& spawnLocation, float movementSpeed, Color color, std::string& name, const Vector2& size);
+	Fish(const Vector2& spawnLocation, float movementSpeed, Color color, const std::string& name, const Vector2& size);
 
 	Vector2 GetLocation() const;
 	Vector2 GetSpawnLocation() const;
 	Vector2 GetTargetLocation() const;
 	Color GetColor() const;
 	std::string GetName() const;
+	Vector2 GetSize() const;
 
 	bool IsAtTarget();
 	void PickRandomTarget(int x_constraint, int y_constraint);

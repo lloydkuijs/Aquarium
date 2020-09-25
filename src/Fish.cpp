@@ -1,11 +1,12 @@
 #include "Fish.h"
 
-Fish::Fish(const Vector2& spawnLocation, float movementSpeed, Color color, std::string& name, const Vector2& size)
+Fish::Fish(const Vector2& spawnLocation, float movementSpeed, Color color, const std::string& name, const Vector2& size)
 {
     _spawnLocation = spawnLocation;
     _movementSpeed = movementSpeed;
     _currentLocation = spawnLocation;
     _targetLocation = _currentLocation;
+    _size = size;
     _color = color;
     _name = name;
 }
@@ -35,6 +36,11 @@ std::string Fish::GetName() const
     return _name;
 }
 
+Vector2 Fish::GetSize() const
+{
+    return _size;
+}
+
 bool Fish::IsAtTarget()
 {
     return _currentLocation == _targetLocation;
@@ -45,8 +51,8 @@ void Fish::PickRandomTarget(int x_constraint, int y_constraint)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<> pick_x(0, x_constraint);
-    std::uniform_int_distribution<> pick_y(0, y_constraint);
+    std::uniform_int_distribution<> pick_x(0, x_constraint - _size.x);
+    std::uniform_int_distribution<> pick_y(0, y_constraint - _size.y);
 
     _targetLocation.x = pick_x(gen);
     _targetLocation.y = pick_y(gen);

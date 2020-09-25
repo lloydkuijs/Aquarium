@@ -38,6 +38,24 @@ void Game::Update()
 
 }
 
+void Game::Input()
+{
+	SDL_Event e;
+
+	while (SDL_PollEvent(&e))
+	{
+		if (e.type == SDL_QUIT)
+		{
+			_running = false;
+		}
+	}
+}
+
+void Game::Close()
+{
+	_graphics.Close();
+}
+
 void Game::Render()
 {
 	_graphics.Clear();

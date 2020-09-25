@@ -91,7 +91,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2\lib\x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -145,15 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Fish.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Fish.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Fish.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Fish.h" />
+    <ClInclude Include="src\Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\sample.bmp" />

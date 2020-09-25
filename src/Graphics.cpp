@@ -21,7 +21,7 @@ bool Graphics::Init()
 	}
 	else
 	{
-		_window = SDL_CreateWindow("Aquarium", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_WIDTH, SDL_WINDOW_SHOWN);
+		_window = SDL_CreateWindow("Aquarium", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 		if (_window == nullptr)
 		{
@@ -39,6 +39,12 @@ bool Graphics::Init()
 			{
 				result = false;
 			}
+
+			SDL_Surface* icon = SDL_LoadBMP("resources\\icon.bmp");
+
+			SDL_SetWindowIcon(_window, icon);
+
+			SDL_FreeSurface(icon);
 		}
 	}	
 
@@ -59,8 +65,9 @@ void Graphics::Close()
 void Graphics::DrawFish(const Fish& fish)
 {
 	auto location = fish.GetLocation();
+	auto size = fish.GetSize();
 
-	SDL_Rect rectangle = { location.x, location.y, 15, 15 }; // the rectangle
+	SDL_Rect rectangle = { location.x, location.y, size.x, size.y }; // the rectangle
 
 	switch (fish.GetColor())
 	{

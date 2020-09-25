@@ -11,17 +11,24 @@
 
 int main(int argc, char* argv[])
 {
-	/**/
+#if NDEBUG
+	HWND windowHandle = GetConsoleWindow();
+	ShowWindow(windowHandle, SW_HIDE);
+#endif
 
 	Game game;
 
 	if (game.Init()) 
 	{
+
 		while (game.Running())
 		{
 			game.Update();
+			game.Input();
 			game.Render();
 		}
+
+		game.Close();
 	}
 
 	return EXIT_SUCCESS;
