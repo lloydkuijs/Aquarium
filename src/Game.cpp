@@ -10,6 +10,10 @@ bool Game::Init()
 
 	_time_old = SDL_GetPerformanceCounter();
 
+	_fish.reserve(4); // Adjust depending on Aquarium size
+	_fish.emplace_back(Fish{ {150,150}, 150, Color::blue, "John", {150, 150} });
+	_fish.emplace_back(Fish{ {150,150}, 150, Color::blue, "Tijmen", {150, 150} });
+
 	return _running;
 }
 
@@ -32,10 +36,33 @@ void Game::Update()
 
 		fish.Update(deltaTime);
 
-		std::cout << "X: " << fish.GetLocation().x << "Y: " << fish.GetLocation().y << std::endl;
-		std::cout << "Target: " << "X: " << fish.GetTargetLocation().x << "Y: " << fish.GetTargetLocation().y << std::endl;
+		const Vector2 current_location = fish.GetLocation();
+		const Vector2 target_location = fish.GetTargetLocation();
+
+		std::cout << "X: " << current_location.x << "Y: " << current_location.y << std::endl;
+		std::cout << "Target: " << "X: " << target_location.x << "Y: " << target_location.y << std::endl;
 	}
 
+	for (int i = 0; i < _fish.size(); i++)
+	{
+		Fish* fishA = &_fish[i];
+
+		for (int j = i + 1; j < _fish.size(); j++)
+		{
+			Fish* fishB = &_fish[j];
+
+			if (Fish::IsColliding(*fishA, *fishB))
+			{
+				fishA->SetColor(Color::red);
+				fishB->SetColor(Color::red);
+			}
+			else
+			{
+				fishA->SetColor(Color::blue);
+				fishB->SetColor(Color::blue);
+			}
+		}
+	}
 }
 
 void Game::Input()
@@ -51,11 +78,6 @@ void Game::Input()
 	}
 }
 
-void Game::Close()
-{
-	_graphics.Close();
-}
-
 void Game::Render()
 {
 	_graphics.Clear();
@@ -66,4 +88,9 @@ void Game::Render()
 	}
 
 	_graphics.Draw();
+}
+
+Game::~Game()
+{
+	_graphics.Close();
 }

@@ -11,6 +11,33 @@ Fish::Fish(const Vector2& spawnLocation, float movementSpeed, Color color, const
     _name = name;
 }
 
+bool Fish::IsColliding(const Fish& fishA, const Fish& fishB)
+{
+    Vector2 location_a = fishA.GetLocation();
+    Vector2 location_b = fishB.GetLocation();
+
+    Vector2 size_a = fishA.GetSize();
+    Vector2 size_b = fishB.GetSize();
+
+    float a_left = location_a.x;
+    float a_right = location_a.x + size_a.x;
+    float a_top = location_a.y;
+    float a_bottom = location_a.y + size_a.y;
+
+    float b_left = location_b.x;
+    float b_right = location_b.x + size_b.x;
+    float b_top = location_b.y;
+    float b_bottom = location_b.y + size_b.y;
+
+    // If BOTH the x and y overlap
+    if (b_left <= a_right && a_left <= b_right && b_top <= a_bottom && a_top < b_bottom) 
+    {
+        return true;
+    }
+
+    return false;
+}
+
 Vector2 Fish::GetLocation() const
 {
     return _currentLocation;
@@ -29,6 +56,11 @@ Vector2 Fish::GetTargetLocation() const
 Color Fish::GetColor() const
 {
     return _color;
+}
+
+void Fish::SetColor(Color color)
+{
+    _color = color;
 }
 
 std::string Fish::GetName() const
@@ -75,10 +107,6 @@ void Fish::Update(float delta_time)
         {
             _currentLocation = _currentLocation + (normalized * _movementSpeed * delta_time);
         }
-    }
-    else
-    {
-        std::cout << "At location!!" << std::endl;
     }
 }
 

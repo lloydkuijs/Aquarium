@@ -6,18 +6,7 @@
 
 struct Vector2
 {
-public:
 	float x, y;
-
-	bool Equal(const Vector2& vector) 
-	{
-		if (x == vector.x && y == vector.y) 
-		{
-			return true;
-		}
-
-		return false;
-	}
 
 	Vector2 Normalize();
 	float Magnitude();
@@ -52,10 +41,14 @@ private:
 public:
 	Fish(const Vector2& spawnLocation, float movementSpeed, Color color, const std::string& name, const Vector2& size);
 
+
+	static bool IsColliding(const Fish& fishA, const Fish& fishB);
+
 	Vector2 GetLocation() const;
 	Vector2 GetSpawnLocation() const;
 	Vector2 GetTargetLocation() const;
 	Color GetColor() const;
+	void SetColor(Color color);
 	std::string GetName() const;
 	Vector2 GetSize() const;
 
