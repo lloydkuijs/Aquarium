@@ -67,7 +67,7 @@ public:
 	std::string GetName() const;
 	bool IsAtTarget();
 	void OnCollision(const Fish& fish);
-	void PickRandomTarget(int x_constraint, int y_constraint);
+	void PickRandomTarget();
 	void Update(float delta_time);
 };
 

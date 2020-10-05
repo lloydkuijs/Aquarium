@@ -14,10 +14,10 @@ private:
 	void LogSDLError(std::ostream& os, const std::string& msg);
 
 public:
-	static const int SCREEN_WIDTH = 1200;
-	static const int SCREEN_HEIGHT = 800;
-
+	static int SCREEN_WIDTH, SCREEN_HEIGHT;
 	~Graphics();
+
+	static void SetDimensions(int screen_height, int screen_width);
 
 	//Starts up SDL and creates window
 	bool Init();

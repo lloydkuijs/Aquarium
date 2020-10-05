@@ -1,6 +1,9 @@
 #include "Graphics.h"
 #include "Fish.h"
 
+int Graphics::SCREEN_WIDTH = 0;
+int Graphics::SCREEN_HEIGHT = 0;
+
 void Graphics::LogSDLError(std::ostream& os, const std::string& msg)
 {
 	os << msg << " error: " << SDL_GetError() << std::endl;
@@ -9,6 +12,12 @@ void Graphics::LogSDLError(std::ostream& os, const std::string& msg)
 Graphics::~Graphics()
 {
 	Close();
+}
+
+void Graphics::SetDimensions(int screen_height, int screen_width)
+{
+	Graphics::SCREEN_WIDTH = screen_width;
+	Graphics::SCREEN_HEIGHT = screen_height;
 }
 
 bool Graphics::Init()

@@ -190,13 +190,13 @@ void Fish::OnCollision(const Fish& fish)
     //PickRandomTarget(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT);
 }
 
-void Fish::PickRandomTarget(int x_constraint, int y_constraint)
+void Fish::PickRandomTarget()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<> pick_x(0, x_constraint - size.width);
-    std::uniform_int_distribution<> pick_y(0, y_constraint - size.height);
+    std::uniform_int_distribution<> pick_x(0, Graphics::SCREEN_WIDTH);
+    std::uniform_int_distribution<> pick_y(0, Graphics::SCREEN_HEIGHT);
 
     targetLocation.x = pick_x(gen);
     targetLocation.y = pick_y(gen);
@@ -224,7 +224,7 @@ void Fish::Update(float delta_time)
     }
     else
     {
-        PickRandomTarget(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT);
+        PickRandomTarget();
     }
 }
 

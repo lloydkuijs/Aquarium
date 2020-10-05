@@ -3,6 +3,8 @@
 
 bool Game::Init()
 {
+	Graphics::SetDimensions(900, 900);
+
 	if (_graphics.Init())
 	{
 		_running = true;
@@ -10,12 +12,53 @@ bool Game::Init()
 
 	_time_old = SDL_GetPerformanceCounter();
 
-	_fish.reserve(4); // Adjust depending on Aquarium size
+	_fish.reserve(30); // Adjust depending on Aquarium size
 	_fish.emplace_back(Fish(150, Color::red, "I'm sorry", Size{ 50, 50 }, { 0, 0 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 200, 150 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 300, 150 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 400, 150 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 5, 5 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
 
 	return _running;
 }
