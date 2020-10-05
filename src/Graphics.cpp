@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Fish.h"
 
 void Graphics::LogSDLError(std::ostream& os, const std::string& msg)
 {
@@ -64,10 +65,10 @@ void Graphics::Close()
 
 void Graphics::DrawFish(const Fish& fish)
 {
-	auto location = fish.GetLocation();
-	auto size = fish.GetSize();
+	auto location = fish.location;
+	auto size = fish.size;
 
-	SDL_Rect rectangle = { location.x, location.y, size.x, size.y }; // the rectangle
+	SDL_Rect rectangle = { location.x, location.y, size.width, size.height }; // the rectangle
 
 	switch (fish.GetColor())
 	{

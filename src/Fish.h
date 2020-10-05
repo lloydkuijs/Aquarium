@@ -1,15 +1,14 @@
 #pragma once
 
 #include <iostream>
-#include <random>
-#include <math.h>
 
 struct Vector2
 {
 	float x, y;
 
-	Vector2 Normalize();
-	float Magnitude();
+	Vector2 Normalize() const;
+	float Magnitude() const;
+	Vector2 Abs();
 
 	Vector2 operator*(float multiplier) const;
 	Vector2 operator/(float diviser) const;
@@ -18,6 +17,17 @@ struct Vector2
 	bool operator==(const Vector2& vector) const;
 	bool operator!=(const Vector2& vector) const;
 
+	inline static Vector2 Null() { return Vector2{ 0,0 }; };
+
+	inline void Print()
+	{
+		std::cout << "X: " << x << " y: " << y << "\n";
+	}
+};
+
+struct Size
+{
+	float width, height;
 };
 
 enum class Color {
@@ -30,29 +40,33 @@ class Fish
 {
 
 private:
-	Vector2 _currentLocation;
-	Vector2 _targetLocation;
-	Vector2 _spawnLocation;
+	bool _colliding;
 	float _movementSpeed;
 	Color _color;
 	std::string _name;
-	Vector2 _size;
 
+// These vectors are public to not have to write an external interface for this class to make positional calculations, 
+// I would consider this a problem in a larger sized application.
 public:
-	Fish(const Vector2& spawnLocation, float movementSpeed, Color color, const std::string& name, const Vector2& size);
+	Vector2 location;
+	Vector2 targetLocation;
+	Vector2 spawnLocation;
+	Vector2 velocity;
+	Size size;
 
+	Fish(float movementSpeed, Color color, const std::string& name, const Size& size);
+	Fish(float movementSpeed, Color color, const std::string& name, const Size& size, const Vector2& spawnLocation);
 
 	static bool IsColliding(const Fish& fishA, const Fish& fishB);
+	static void ResolveCollision(Fish& fishA, Fish& fishB);
 
-	Vector2 GetLocation() const;
-	Vector2 GetSpawnLocation() const;
-	Vector2 GetTargetLocation() const;
+	float GetHeight() const;
+	float GetWidth() const;
 	Color GetColor() const;
 	void SetColor(Color color);
 	std::string GetName() const;
-	Vector2 GetSize() const;
-
 	bool IsAtTarget();
+	void OnCollision(const Fish& fish);
 	void PickRandomTarget(int x_constraint, int y_constraint);
 	void Update(float delta_time);
 };
