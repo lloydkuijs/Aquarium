@@ -32,14 +32,14 @@ bool Fish::IsColliding(const Fish& fishA, const Fish& fishB)
     Vector2 location_b = fishB.location;
 
     float a_left = location_a.x;
-    float a_right = location_a.x + fishA.GetHeight();
+    float a_right = location_a.x + fishA.GetWidth();
     float a_top = location_a.y;
-    float a_bottom = location_a.y + fishA.GetWidth();
+    float a_bottom = location_a.y + fishA.GetHeight();
 
     float b_left = location_b.x;
-    float b_right = location_b.x + fishB.GetHeight();
+    float b_right = location_b.x + fishB.GetWidth();
     float b_top = location_b.y;
-    float b_bottom = location_b.y + fishB.GetWidth();
+    float b_bottom = location_b.y + fishB.GetHeight();
 
     // If BOTH the x and y overlap
     if (b_left <= a_right && a_left <= b_right && b_top <= a_bottom && a_top < b_bottom) 
@@ -58,14 +58,14 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
     Vector2 location_b = fishB.location;
 
     float a_left = location_a.x;
-    float a_right = location_a.x + fishA.GetHeight();
+    float a_right = location_a.x + fishA.GetWidth();
     float a_top = location_a.y;
-    float a_bottom = location_a.y + fishA.GetWidth();
+    float a_bottom = location_a.y + fishA.GetHeight();
 
     float b_left = location_b.x;
-    float b_right = location_b.x + fishB.GetHeight();
+    float b_right = location_b.x + fishB.GetWidth();
     float b_top = location_b.y;
-    float b_bottom = location_b.y + fishB.GetWidth();
+    float b_bottom = location_b.y + fishB.GetHeight();
 
     Vector2 collision = Vector2::Null();
 
@@ -75,10 +75,10 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
     }
     else
     {
-        collision.x = b_right - b_left;
+        collision.x = b_right - a_left;
     }
 
-    if (a_bottom < b_top)
+    if (a_bottom < b_bottom)
     {
         collision.y = a_bottom - b_top;
     }
@@ -87,7 +87,22 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         collision.y = b_bottom - a_top;
     }
 
-    if (collision.x < collision.y)
+    if (collision.x > collision.y)
+    {
+        float stepY = collision.y / 2;
+
+        if (a_top < b_top)
+        {
+            fishA.location.y -= stepY;
+            fishB.location.y += stepY;
+        }
+        else
+        {
+            fishA.location.y += stepY;
+            fishB.location.y -= stepY;
+        }
+    }
+    else if (collision.x < collision.y)
     {
         // Move the X
         float stepX = collision.x / 2;
@@ -101,21 +116,6 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         {
             fishA.location.x += stepX;
             fishB.location.x -= stepX;
-        }
-    }
-    else if (collision.x > collision.y)
-    {
-        float stepY = collision.y;
-
-        if (a_left < b_left)
-        {
-            fishA.location.y -= stepY;
-            fishB.location.y += stepY;
-        }
-        else
-        {
-            fishA.location.y += stepY;
-            fishB.location.y -= stepY;
         }
     }
     else
@@ -136,7 +136,7 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
 
         float stepY = collision.y / 2;
 
-        if (a_left < b_left)
+        if (a_top < b_top)
         {
             fishA.location.y -= stepY;
             fishB.location.y += stepY;

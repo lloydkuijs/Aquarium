@@ -11,9 +11,7 @@ bool Game::Init()
 	_time_old = SDL_GetPerformanceCounter();
 
 	_fish.reserve(4); // Adjust depending on Aquarium size
-	_fish.emplace_back(Fish(150, Color::red, "James", Size{ 50, 50 }, { 0, 0 }));
-	_fish.emplace_back(Fish(150, Color::red, "Jim", Size{ 50, 50 }, { 500, 500 }));
-	_fish.emplace_back(Fish(150, Color::red, "I'm sorry", Size{ 50, 50 }, { 1000, 100 }));
+	_fish.emplace_back(Fish(150, Color::red, "I'm sorry", Size{ 50, 50 }, { 0, 0 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 200, 150 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 300, 150 }));
 	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 400, 150 }));
