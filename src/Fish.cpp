@@ -95,12 +95,12 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         if (a_left < b_left)
         {
             fishA.location.x -= stepX;
-            //fishB.location.x += stepX;
+            fishB.location.x += stepX;
         }
         else
         {
             fishA.location.x += stepX;
-            //fishB.location.x -= stepX;
+            fishB.location.x -= stepX;
         }
     }
     else if (collision.x > collision.y)
@@ -110,12 +110,12 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         if (a_left < b_left)
         {
             fishA.location.y -= stepY;
-            //fishB.location.y += stepY;
+            fishB.location.y += stepY;
         }
         else
         {
             fishA.location.y += stepY;
-            //fishB.location.y -= stepY;
+            fishB.location.y -= stepY;
         }
     }
     else
@@ -126,12 +126,12 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         if (a_left < b_left)
         {
             fishA.location.x -= stepX;
-            //fishB.location.x += stepX;
+            fishB.location.x += stepX;
         }
         else
         {
             fishA.location.x += stepX;
-            //fishB.location.x -= stepX;
+            fishB.location.x -= stepX;
         }
 
         float stepY = collision.y / 2;
@@ -139,12 +139,12 @@ void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
         if (a_left < b_left)
         {
             fishA.location.y -= stepY;
-            //fishB.location.y += stepY;
+            fishB.location.y += stepY;
         }
         else
         {
             fishA.location.y += stepY;
-            //fishB.location.y -= stepY;
+            fishB.location.y -= stepY;
         }
     }
 }
