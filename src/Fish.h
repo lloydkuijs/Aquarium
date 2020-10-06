@@ -68,7 +68,7 @@ public:
 	bool IsAtTarget();
 	void OnCollision(const Fish& fish);
 	void PickRandomTarget();
-	void Update(float delta_time);
+	void Update();
 };
 
 

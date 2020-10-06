@@ -18,6 +18,7 @@ private:
 	std::vector<Fish> _fish;
 
 public:
+	static float deltaTime;
 	bool Init();
 	void Update();
 	void Input();

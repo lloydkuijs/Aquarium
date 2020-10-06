@@ -1,8 +1,10 @@
 #include "game.h"
 
+float Game::deltaTime = 0;
 
 bool Game::Init()
 {
+
 	Graphics::SetDimensions(900, 900);
 
 	if (_graphics.Init())
@@ -65,8 +67,6 @@ bool Game::Init()
 
 void Game::Update()
 {
-	float deltaTime = 0;
-
 	Uint64 time_now = SDL_GetPerformanceCounter();
 
 	deltaTime = (float)((time_now - _time_old) / (float)SDL_GetPerformanceFrequency());
@@ -75,7 +75,7 @@ void Game::Update()
 
 	for (Fish& fish : _fish)
 	{
-		fish.Update(deltaTime);		
+		fish.Update();		
 	}
 
 	for (int i = 0; i < _fish.size(); i++)

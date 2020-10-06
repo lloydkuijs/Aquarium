@@ -2,6 +2,7 @@
 #include <random>
 #include <math.h>
 #include "Graphics.h"
+#include "Game.h"
 
 Fish::Fish(float movementSpeed, Color color, const std::string& name, const Size& size)
 {
@@ -202,14 +203,14 @@ void Fish::PickRandomTarget()
     targetLocation.y = pick_y(gen);
 }
 
-void Fish::Update(float delta_time)
+void Fish::Update()
 {
     if (!IsAtTarget())
     {
         Vector2 difference = targetLocation - location;
         Vector2 normalized = difference.Normalize();
 
-        float stepsize = _movementSpeed * delta_time;
+        float stepsize = _movementSpeed * Game::deltaTime;
 
         if (difference.Magnitude() < stepsize)
         {
@@ -219,7 +220,7 @@ void Fish::Update(float delta_time)
         {
             velocity = (normalized * _movementSpeed);
 
-            location = location + velocity * delta_time;
+            location = location + velocity * Game::deltaTime;
         }
     }
     else
