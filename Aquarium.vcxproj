@@ -145,12 +145,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Fish.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Fish.h" />
     <ClInclude Include="src\Graphics.h" />
