@@ -4,194 +4,59 @@
 #include "Graphics.h"
 #include "Game.h"
 
-Fish::Fish(float movementSpeed, Color color, const std::string& name, const Size& size)
+void Test(const poscol::Collider& col)
 {
-    _movementSpeed = movementSpeed;
-    location = Vector2{ 0,0 };
-    targetLocation = Vector2{ 0,0 };
-    spawnLocation = Vector2{ 0,0 };
-    _color = color;
-    _name = name;
-    this->size = size;
-}
 
-Fish::Fish(float movementSpeed, Color color, const std::string& name, const Size& size, const Vector2& spawnLocation)
+}
+aquatic::Fish::Fish(float movementSpeed, Color color, const std::string& name, int width, int height)
 {
+    targetLocation = poscol::Vector2{ 0,0 };
     _movementSpeed = movementSpeed;
-    location = spawnLocation;
-    targetLocation = spawnLocation;
-    this->spawnLocation = spawnLocation;
+    collider = poscol::RectangleCollider();
+    this->_size = Size{ width, height };
     _color = color;
     _name = name;
 
-    this->size = size;
+    collider.size = { (float)width, (float)height };
+
+    //collider.OnCollision(this->OnCollision);
 }
 
-bool Fish::IsColliding(const Fish& fishA, const Fish& fishB)
+aquatic::Size aquatic::Fish::GetSize() const
 {
-    Vector2 location_a = fishA.location;
-    Vector2 location_b = fishB.location;
-
-    float a_left = location_a.x;
-    float a_right = location_a.x + fishA.GetWidth();
-    float a_top = location_a.y;
-    float a_bottom = location_a.y + fishA.GetHeight();
-
-    float b_left = location_b.x;
-    float b_right = location_b.x + fishB.GetWidth();
-    float b_top = location_b.y;
-    float b_bottom = location_b.y + fishB.GetHeight();
-
-    // If BOTH the x and y overlap
-    if (b_left <= a_right && a_left <= b_right && b_top <= a_bottom && a_top < b_bottom) 
-    {
-        return true;
-    }
-
-    return false;
+    return _size;
 }
 
-void Fish::ResolveCollision(Fish& fishA, Fish& fishB)
-{
-    Vector2 collision_angle = (fishB.location - fishA.location).Abs();
-
-    Vector2 location_a = fishA.location;
-    Vector2 location_b = fishB.location;
-
-    float a_left = location_a.x;
-    float a_right = location_a.x + fishA.GetWidth();
-    float a_top = location_a.y;
-    float a_bottom = location_a.y + fishA.GetHeight();
-
-    float b_left = location_b.x;
-    float b_right = location_b.x + fishB.GetWidth();
-    float b_top = location_b.y;
-    float b_bottom = location_b.y + fishB.GetHeight();
-
-    Vector2 collision = Vector2::Null();
-
-    if (a_left < b_left)
-    {
-        collision.x = a_right - b_left;
-    }
-    else
-    {
-        collision.x = b_right - a_left;
-    }
-
-    if (a_bottom < b_bottom)
-    {
-        collision.y = a_bottom - b_top;
-    }
-    else
-    {
-        collision.y = b_bottom - a_top;
-    }
-
-    if (collision.x > collision.y)
-    {
-        float stepY = collision.y / 2;
-
-        if (a_top < b_top)
-        {
-            fishA.location.y -= stepY;
-            fishB.location.y += stepY;
-        }
-        else
-        {
-            fishA.location.y += stepY;
-            fishB.location.y -= stepY;
-        }
-    }
-    else if (collision.x < collision.y)
-    {
-        // Move the X
-        float stepX = collision.x / 2;
-
-        if (a_left < b_left)
-        {
-            fishA.location.x -= stepX;
-            fishB.location.x += stepX;
-        }
-        else
-        {
-            fishA.location.x += stepX;
-            fishB.location.x -= stepX;
-        }
-    }
-    else
-    {
-        // move the X and y
-        float stepX = collision.x;
-
-        if (a_left < b_left)
-        {
-            fishA.location.x -= stepX;
-            fishB.location.x += stepX;
-        }
-        else
-        {
-            fishA.location.x += stepX;
-            fishB.location.x -= stepX;
-        }
-
-        float stepY = collision.y / 2;
-
-        if (a_top < b_top)
-        {
-            fishA.location.y -= stepY;
-            fishB.location.y += stepY;
-        }
-        else
-        {
-            fishA.location.y += stepY;
-            fishB.location.y -= stepY;
-        }
-    }
-}
-
-float Fish::GetHeight() const
-{
-    return size.height;
-}
-
-float Fish::GetWidth() const
-{
-    return size.width;
-}
-
-Color Fish::GetColor() const
+aquatic::Color aquatic::Fish::GetColor() const
 {
     return _color;
 }
 
-void Fish::SetColor(Color color)
+void aquatic::Fish::ChangeColor(Color color)
 {
     _color = color;
 }
 
-std::string Fish::GetName() const
+std::string aquatic::Fish::GetName() const
 {
     return _name;
 }
 
-bool Fish::IsAtTarget()
+bool aquatic::Fish::IsAtTarget()
 {
-    return location == targetLocation;
+    return collider.position == targetLocation;
 }
 
-void Fish::OnCollision(const Fish& fish)
+void aquatic::Fish::OnCollision(const poscol::Collider& collider)
 {
-    Vector2 n_collision = (fish.location - location).Normalize();
+    poscol::Vector2 n_collision = (collider.position - this->collider.position).Normalize();
 
     n_collision = n_collision * -100;
 
-    targetLocation = location + n_collision;
-
-    //PickRandomTarget(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT);
+    targetLocation = this->collider.position + n_collision;
 }
 
-void Fish::PickRandomTarget()
+void aquatic::Fish::PickRandomTarget()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -203,77 +68,28 @@ void Fish::PickRandomTarget()
     targetLocation.y = pick_y(gen);
 }
 
-void Fish::Update()
+void aquatic::Fish::Update()
 {
     if (!IsAtTarget())
     {
-        Vector2 difference = targetLocation - location;
-        Vector2 normalized = difference.Normalize();
+        poscol::Vector2 difference = targetLocation - collider.position;
+        poscol::Vector2 normalized = difference.Normalize();
 
         float stepsize = _movementSpeed * Game::deltaTime;
 
         if (difference.Magnitude() < stepsize)
         {
-            location = targetLocation;
+            collider.position = targetLocation;
         }
         else
         {
-            velocity = (normalized * _movementSpeed);
+            collider.velocity = (normalized * _movementSpeed);
 
-            location = location + velocity * Game::deltaTime;
+            collider.position = collider.position + collider.velocity * Game::deltaTime;
         }
     }
     else
     {
         PickRandomTarget();
     }
-}
-
-Vector2 Vector2::Normalize() const
-{
-    Vector2 vector{ x, y };
-
-    float magnitude = sqrt(x * x + y * y);
-
-    return vector / magnitude;
-}
-
-float Vector2::Magnitude() const
-{
-    return sqrt(x * x + y * y);
-}
-
-Vector2 Vector2::Abs()
-{
-    return Vector2{ std::abs(x), std::abs(y) };
-}
-
-Vector2 Vector2::operator*(float multiplier) const
-{
-    return Vector2{ x * multiplier, y * multiplier };
-}
-
-Vector2 Vector2::operator/(float diviser) const
-{
-    return Vector2{ x / diviser, y / diviser };
-}
-
-Vector2 Vector2::operator+(const Vector2& vector) const
-{
-    return Vector2{ x + vector.x, y + vector.y };
-}
-
-Vector2 Vector2::operator-(const Vector2& vector) const
-{
-    return Vector2{ x - vector.x, y - vector.y };
-}
-
-bool Vector2::operator==(const Vector2& vector) const
-{
-    return x == vector.x && y == vector.y;
-}
-
-bool Vector2::operator!=(const Vector2& vector) const
-{
-    return x != vector.x || y != vector.y;
 }

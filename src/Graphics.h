@@ -25,7 +25,7 @@ public:
 	//Frees media and shuts down SDL
 	void Close();
 
-	void DrawFish(const Fish& fish);
+	void DrawFish(const aquatic::Fish& fish);
 
 	void Clear();
 

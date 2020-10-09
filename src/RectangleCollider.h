@@ -2,12 +2,21 @@
 
 #include "Collider.h"
 
-class RectangleCollider : public Collider
+namespace poscol
 {
-public:
-    // Inherited via Collider
-    virtual void Update() override;
-    virtual void Collide(Collider& collider) override;
-    void Collide(RectangleCollider& collider);
+    struct Size
+    {
+        float width, height;
+    };
+
+    class RectangleCollider : public Collider
+    {
+    public:
+        Size size;
+
+        // Inherited via Collider
+        virtual void Update() override;
+        void Collide(RectangleCollider& collider);
+    };
 };
 

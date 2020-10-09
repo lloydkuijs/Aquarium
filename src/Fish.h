@@ -2,50 +2,48 @@
 
 #include <iostream>
 #include "Collider.h"
+#include "RectangleCollider.h"
 
-struct Size
+namespace aquatic
 {
-	float width, height;
-};
+	struct Size
+	{
+		int width, height;
+	};
 
-enum class Color {
-	red,
-	green,
-	blue,
-};
+	enum class Color
+	{
+		red,
+		green,
+		blue,
+	};
 
-class Fish
-{
+	class Fish
+	{
+	private:
+		float _movementSpeed;
+		Color _color;
+		std::string _name;
+		Size _size;
 
-private:
-	bool _colliding;
-	float _movementSpeed;
-	Color _color;
-	std::string _name;
+		// These vectors are public to not have to write an external interface for this class to make positional calculations, 
+		// I would consider this a problem in a larger sized application.
+	public:
+		poscol::RectangleCollider collider;
+		poscol::Vector2 targetLocation;
 
-// These vectors are public to not have to write an external interface for this class to make positional calculations, 
-// I would consider this a problem in a larger sized application.
-public:
-	Vector2 targetLocation;
-	Vector2 spawnLocation;
-	
-	Size size;
+		Fish(float movementSpeed, Color color, const std::string& name, int width, int height);
 
-	Fish(float movementSpeed, Color color, const std::string& name, const Size& size);
-	Fish(float movementSpeed, Color color, const std::string& name, const Size& size, const Vector2& spawnLocation);
+		Size GetSize() const;
+		Color GetColor() const;
+		void ChangeColor(Color color);
+		std::string GetName() const;
+		bool IsAtTarget();
+		void OnCollision(const poscol::Collider& collider);
+		void PickRandomTarget();
+		void Update();
+	};
+}
 
-	static bool IsColliding(const Fish& fishA, const Fish& fishB);
-	static void ResolveCollision(Fish& fishA, Fish& fishB);
-
-	float GetHeight() const;
-	float GetWidth() const;
-	Color GetColor() const;
-	void SetColor(Color color);
-	std::string GetName() const;
-	bool IsAtTarget();
-	void OnCollision(const Fish& fish);
-	void PickRandomTarget();
-	void Update();
-};
 
 

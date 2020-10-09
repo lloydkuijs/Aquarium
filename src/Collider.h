@@ -2,38 +2,50 @@
 
 #include <iostream>
 
-struct Vector2
+/// <summary>
+/// Position and collision
+/// </summary>
+namespace poscol
 {
-	float x, y;
-
-	Vector2 Normalize() const;
-	float Magnitude() const;
-	Vector2 Abs();
-
-	Vector2 operator*(float multiplier) const;
-	Vector2 operator/(float diviser) const;
-	Vector2 operator+(const Vector2& vector) const;
-	Vector2 operator-(const Vector2& vector) const;
-	bool operator==(const Vector2& vector) const;
-	bool operator!=(const Vector2& vector) const;
-
-	inline static Vector2 Null() { return Vector2{ 0,0 }; };
-
-	inline void Print()
+	struct Vector2
 	{
-		std::cout << "X: " << x << " y: " << y << "\n";
-	}
-};
+		float x, y;
 
-class Collider
-{
-public:
-    Vector2 position;
-	Vector2 velocity;
-	bool colliding;
+		Vector2 Normalize() const;
+		float Magnitude() const;
+		Vector2 Abs();
 
-    virtual void Update() = 0;
-	virtual void Collide(Collider& collider2) = 0;
+		Vector2 operator*(float multiplier) const;
+		Vector2 operator/(float diviser) const;
+		Vector2 operator+(const Vector2& vector) const;
+		Vector2 operator-(const Vector2& vector) const;
+		void operator+=(const Vector2& vector);
+		bool operator==(const Vector2& vector) const;
+		bool operator!=(const Vector2& vector) const;
+
+		inline static Vector2 Null() { return Vector2{ 0,0 }; };
+
+		inline void Print()
+		{
+			std::cout << "X: " << x << " y: " << y << "\n";
+		}
+	};
+
+	class Collider
+	{
+	protected:
+		void (*col_callback)(const Collider&);
+
+	public:
+		Vector2 position;
+		Vector2 velocity;
+
+		Collider();
+		virtual void Update() = 0;
+		virtual void Collide(Collider& collider2);
+		virtual void Translate(Vector2 vector);
+		virtual void OnCollision(void(*onCollision)(const Collider&));
+	};
 
 };
 

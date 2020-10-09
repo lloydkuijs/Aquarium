@@ -4,7 +4,6 @@ float Game::deltaTime = 0;
 
 bool Game::Init()
 {
-
 	Graphics::SetDimensions(900, 900);
 
 	if (_graphics.Init())
@@ -15,58 +14,16 @@ bool Game::Init()
 	_time_old = SDL_GetPerformanceCounter();
 
 	_fish.reserve(30); // Adjust depending on Aquarium size
-	_fish.emplace_back(Fish(150, Color::red, "I'm sorry", Size{ 50, 50 }, { 0, 0 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 200, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 300, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 400, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 50, 50 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 5, 5 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
-	_fish.emplace_back(Fish(150, Color::red, "John", Size{ 15, 15 }, { 500, 150 }));
+	_fish.emplace_back(aquatic::Fish(150, aquatic::Color::red, "I'm sorry", 50, 50));
+	_fish.emplace_back(aquatic::Fish(150, aquatic::Color::red, "John", 50, 50));
 
 	return _running;
 }
 
 void Game::Update()
 {
+	using namespace aquatic;
+
 	Uint64 time_now = SDL_GetPerformanceCounter();
 
 	deltaTime = (float)((time_now - _time_old) / (float)SDL_GetPerformanceFrequency());
@@ -86,7 +43,8 @@ void Game::Update()
 		{
 			Fish* fishB = &_fish[j];
 
-			if (Fish::IsColliding(*fishA, *fishB))
+
+			/*if (Fish::IsColliding(*fishA, *fishB))
 			{
 				// Give opportunity for the fish to change their targets
 				fishA->OnCollision(*fishB);
@@ -94,7 +52,7 @@ void Game::Update()
 				
 				//Resolve position
 				Fish::ResolveCollision(*fishA, *fishB);
-			}
+			}*/
 		}
 	}
 }
@@ -117,7 +75,7 @@ void Game::Render()
 {
 	_graphics.Clear();
 
-	for (Fish& fish : _fish)
+	for (aquatic::Fish& fish : _fish)
 	{
 		_graphics.DrawFish(fish);
 	}

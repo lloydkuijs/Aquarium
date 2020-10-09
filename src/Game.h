@@ -15,7 +15,7 @@ private:
 	Graphics _graphics;
 	bool _running;
 	Uint64 _time_old;
-	std::vector<Fish> _fish;
+	std::vector<aquatic::Fish> _fish;
 
 public:
 	static float deltaTime;

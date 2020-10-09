@@ -72,22 +72,22 @@ void Graphics::Close()
 	SDL_Quit();
 }
 
-void Graphics::DrawFish(const Fish& fish)
+void Graphics::DrawFish(const aquatic::Fish& fish)
 {
-	auto location = fish.location;
-	auto size = fish.size;
+	auto location = fish.collider.position;
+	aquatic::Size size = fish.GetSize();
 
 	SDL_Rect rectangle = { location.x, location.y, size.width, size.height }; // the rectangle
 
 	switch (fish.GetColor())
 	{
-		case Color::blue:
+		case aquatic::Color::blue:
 			SDL_SetRenderDrawColor(_renderer, 63, 127, 191, 1);
 			break;
-		case Color::red:
+		case aquatic::Color::red:
 			SDL_SetRenderDrawColor(_renderer, 191, 63, 63, 1);
 			break;
-		case Color::green:
+		case aquatic::Color::green:
 			SDL_SetRenderDrawColor(_renderer, 63, 191, 63, 1);
 			break;
 	}
