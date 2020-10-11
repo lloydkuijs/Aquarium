@@ -5,7 +5,7 @@ float Game::deltaTime = 0;
 
 bool Game::Init()
 {
-	Graphics::SetDimensions(900, 1200);
+	//Graphics::SetDimensions(900, 1200);
 
 	if (_graphics.Init())
 	{
@@ -16,9 +16,9 @@ bool Game::Init()
 
 	FishSpawner spawner;
 	spawner
-		.AddFishType(FishInfo{ 15, aquatic::Color::red, 70, {35, 35}, "Medium fish" })
-		.AddFishType(FishInfo{ 25, aquatic::Color::blue, 120, {15, 15}, "Fast fish" })
-		.AddFishType(FishInfo{ 9, aquatic::Color::green, 120, {45, 45}, "Big fish" })
+		.AddFishType(FishInfo{ 65, aquatic::Color::red, 70, {35, 35}, "Medium fish" })
+		.AddFishType(FishInfo{ 75, aquatic::Color::blue, 120, {15, 15}, "Fast fish" })
+		.AddFishType(FishInfo{ 50, aquatic::Color::green, 120, {60, 60}, "Big fish" })
 		.Generate(_fish);
 
 	return _running;
@@ -71,6 +71,13 @@ void Game::Input()
 		if (e.type == SDL_QUIT)
 		{
 			_running = false;
+		}
+		if (e.type == SDL_KEYDOWN)
+		{
+			if (e.key.keysym.sym == SDLK_ESCAPE)
+			{
+				_running = false;
+			}
 		}
 	}
 }

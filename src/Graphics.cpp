@@ -1,8 +1,8 @@
 #include "Graphics.h"
 #include "Fish.h"
 
-int Graphics::SCREEN_WIDTH = 0;
-int Graphics::SCREEN_HEIGHT = 0;
+int Graphics::SCREEN_WIDTH = -1;
+int Graphics::SCREEN_HEIGHT = -1;
 
 void Graphics::LogSDLError(std::ostream& os, const std::string& msg)
 {
@@ -31,7 +31,25 @@ bool Graphics::Init()
 	}
 	else
 	{
-		_window = SDL_CreateWindow("Aquarium", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (SCREEN_WIDTH + SCREEN_HEIGHT == -2)
+		{
+
+			SDL_Rect rect;
+
+			if (SDL_GetDisplayBounds(0, &rect) != 0)
+			{
+				LogSDLError(std::cout, "Failed to retrieve display bounds");
+			}
+
+			_window = SDL_CreateWindow("Aquarium", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, rect.w, rect.h, SDL_WINDOW_SHOWN & SDL_WINDOW_FULLSCREEN);
+
+			SCREEN_HEIGHT = rect.h;
+			SCREEN_WIDTH = rect.w;
+		}
+		else
+		{
+			_window = SDL_CreateWindow("Aquarium", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		}
 
 		if (_window == nullptr)
 		{
