@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Collider.h"
-#include "GameObject.h"
 
 
 namespace poscol

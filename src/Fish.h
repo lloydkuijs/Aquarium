@@ -3,7 +3,6 @@
 #include <iostream>
 #include "Collider.h"
 #include "RectangleCollider.h"
-#include "GameObject.h"
 
 namespace aquatic
 {
@@ -19,7 +18,7 @@ namespace aquatic
 		blue,
 	};
 
-	class Fish : public GameObject
+	class Fish
 	{
 	private:
 		float _movementSpeed;
@@ -40,8 +39,7 @@ namespace aquatic
 		bool IsAtTarget();
 		void PickRandomTarget();
 
-		// Inherited via GameObject
-		void Update() override;
+		void Update();
 
 		// Overload from function in base class
 		void OnCollision(const aquatic::Fish& collider);
