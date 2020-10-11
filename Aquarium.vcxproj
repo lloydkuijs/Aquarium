@@ -149,11 +149,13 @@
     <ClCompile Include="src\FishSpawner.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Fish.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\RectangleCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\FishSpawner.h" />
     <ClInclude Include="src\Game.h" />

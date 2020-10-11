@@ -3,6 +3,11 @@
 
 poscol::Vector2 poscol::Vector2::Normalize() const
 {
+    if (x + y == 0)
+    {
+        return *this;
+    }
+    
     Vector2 vector{ x, y };
 
     float magnitude = sqrt(x * x + y * y);
@@ -60,21 +65,9 @@ poscol::Collider::Collider()
 {
     position = { 0,0 };
     velocity = { 0,0 };
-    col_callback = nullptr;
-}
-
-void poscol::Collider::Collide(Collider& collider2)
-{
-    // Not supported
-    std::cout << "Unimplemented collision!! Overload the function." << std::endl;
 }
 
 void poscol::Collider::Translate(Vector2 vector)
 {
     this->position += vector;
-}
-
-void poscol::Collider::OnCollision(void(*onCollision)(const Collider&))
-{
-    this->col_callback = onCollision;
 }

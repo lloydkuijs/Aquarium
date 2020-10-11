@@ -3,51 +3,25 @@
 
 using namespace poscol;
 
-void RectangleCollider::Update()
+poscol::RectangleCollider::RectangleCollider()
 {
+    size = { 0,0 };
 }
 
-bool Colliding(RectangleCollider collider1, RectangleCollider collider2)
+
+void poscol::RectangleCollider::Collide(RectangleCollider& collider)
 {
+    Vector2 collision_angle = (collider.position - position).Abs();
 
-    Vector2 location_a = collider1.position;
-    Vector2 location_b = collider2.position;
+    float a_left = GetLeft();
+    float a_right = GetRight();
+    float a_top = GetTop();
+    float a_bottom = GetBottom();
 
-    float a_left = location_a.x;
-    float a_right = location_a.x + collider1.size.width;
-    float a_top = location_a.y;
-    float a_bottom = location_a.y + collider1.size.height;
-
-    float b_left = location_b.x;
-    float b_right = location_b.x + collider2.size.width;
-    float b_top = location_b.y;
-    float b_bottom = location_b.y + collider2.size.height;
-
-    // If BOTH the x and y overlap
-    if (b_left <= a_right && a_left <= b_right && b_top <= a_bottom && a_top < b_bottom)
-    {
-        return true;
-    }
-
-    return false;
-}
-
-void ResolveCollision(RectangleCollider collider1, RectangleCollider collider2)
-{
-    Vector2 collision_angle = (collider2.position - collider1.position).Abs();
-
-    Vector2 location_a = collider1.position;
-    Vector2 location_b = collider2.position;
-
-    float a_left = location_a.x;
-    float a_right = location_a.x + collider1.size.width;
-    float a_top = location_a.y;
-    float a_bottom = location_a.y + collider1.size.height;
-
-    float b_left = location_b.x;
-    float b_right = location_b.x + collider2.size.width;
-    float b_top = location_b.y;
-    float b_bottom = location_b.y + collider2.size.height;
+    float b_left = collider.GetLeft();
+    float b_right = collider.GetRight();
+    float b_top = collider.GetTop();
+    float b_bottom = collider.GetBottom();
 
     Vector2 collision = Vector2::Null();
 
@@ -75,13 +49,13 @@ void ResolveCollision(RectangleCollider collider1, RectangleCollider collider2)
 
         if (a_top < b_top)
         {
-            collider1.position.y -= stepY;
-            collider2.position.y += stepY;
+            position.y -= stepY;
+            collider.position.y += stepY;
         }
         else
         {
-            collider1.position.y += stepY;
-            collider2.position.y -= stepY;
+            position.y += stepY;
+            collider.position.y -= stepY;
         }
     }
     else if (collision.x < collision.y)
@@ -91,58 +65,93 @@ void ResolveCollision(RectangleCollider collider1, RectangleCollider collider2)
 
         if (a_left < b_left)
         {
-            collider1.position.x -= stepX;
-            collider2.position.x += stepX;
+            position.x -= stepX;
+            collider.position.x += stepX;
         }
         else
         {
-            collider1.position.x += stepX;
-            collider2.position.x -= stepX;
+            position.x += stepX;
+            collider.position.x -= stepX;
         }
     }
     else
     {
         // move the X and y
-        float stepX = collision.x;
+        float stepX = collision.x / 2;
 
         if (a_left < b_left)
         {
-            collider1.position.x -= stepX;
-            collider2.position.x += stepX;
+            position.x -= stepX;
+            collider.position.x += stepX;
         }
         else
         {
-            collider1.position.x += stepX;
-            collider2.position.x -= stepX;
+            position.x += stepX;
+            collider.position.x -= stepX;
         }
 
         float stepY = collision.y / 2;
 
         if (a_top < b_top)
         {
-            collider1.position.y -= stepY;
-            collider2.position.y += stepY;
+            position.y -= stepY;
+            collider.position.y += stepY;
         }
         else
         {
-            collider1.position.y += stepY;
-            collider2.position.y -= stepY;
+            position.y += stepY;
+            collider.position.y -= stepY;
         }
     }
 }
 
-void RectangleCollider::Collide(RectangleCollider& collider)
+bool poscol::RectangleCollider::IsColliding(RectangleCollider& collider)
 {
-    if (Colliding(*this, collider))
-    {
-        if (col_callback != nullptr)
-        {
-            col_callback(collider);
-        }
+    float a_left = position.x;
+    float a_right = position.x + this->size.width;
+    float a_top = position.y;
+    float a_bottom = position.y + this->size.height;
 
-        if (collider.col_callback != nullptr)
-        {
-            collider.col_callback(*this);
-        }
+    float b_left = collider.position.x;
+    float b_right = collider.position.x + collider.size.width;
+    float b_top = collider.position.y;
+    float b_bottom = collider.position.y + collider.size.height;
+
+    // If BOTH the x and y overlap
+    if (b_left <= a_right && a_left <= b_right && b_top <= a_bottom && a_top < b_bottom)
+    {
+        return true;
     }
+    
+    return false;
+}
+
+float poscol::RectangleCollider::GetHeight() const
+{
+    return size.height;
+}
+
+float poscol::RectangleCollider::GetWidth() const
+{
+    return size.width;
+}
+
+float poscol::RectangleCollider::GetTop() const
+{
+    return position.y;
+}
+
+float poscol::RectangleCollider::GetLeft() const
+{
+    return position.x;
+}
+
+float poscol::RectangleCollider::GetRight() const
+{
+    return position.x + size.width;
+}
+
+float poscol::RectangleCollider::GetBottom() const
+{
+    return position.y + size.height;
 }

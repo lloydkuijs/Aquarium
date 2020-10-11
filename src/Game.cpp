@@ -1,10 +1,11 @@
 #include "game.h"
+#include "FishSpawner.h"
 
 float Game::deltaTime = 0;
 
 bool Game::Init()
 {
-	Graphics::SetDimensions(900, 900);
+	Graphics::SetDimensions(900, 1200);
 
 	if (_graphics.Init())
 	{
@@ -13,9 +14,12 @@ bool Game::Init()
 
 	_time_old = SDL_GetPerformanceCounter();
 
-	_fish.reserve(30); // Adjust depending on Aquarium size
-	_fish.emplace_back(aquatic::Fish(150, aquatic::Color::red, "I'm sorry", 50, 50));
-	_fish.emplace_back(aquatic::Fish(150, aquatic::Color::red, "John", 50, 50));
+	FishSpawner spawner;
+	spawner
+		.AddFishType(FishInfo{ 15, aquatic::Color::red, 70, {35, 35}, "Medium fish" })
+		.AddFishType(FishInfo{ 25, aquatic::Color::blue, 120, {15, 15}, "Fast fish" })
+		.AddFishType(FishInfo{ 9, aquatic::Color::green, 120, {45, 45}, "Big fish" })
+		.Generate(_fish);
 
 	return _running;
 }
@@ -37,22 +41,22 @@ void Game::Update()
 
 	for (int i = 0; i < _fish.size(); i++)
 	{
-		Fish* fishA = &_fish[i];
+		poscol::RectangleCollider* colliderA = &_fish[i].collider;
 
 		for (int j = i + 1; j < _fish.size(); j++)
 		{
-			Fish* fishB = &_fish[j];
+			poscol::RectangleCollider* colliderB = &_fish[j].collider;
 
-
-			/*if (Fish::IsColliding(*fishA, *fishB))
+			if (colliderA->IsColliding(*colliderB))
 			{
-				// Give opportunity for the fish to change their targets
+				Fish* fishA = &_fish[i];
+				Fish* fishB = &_fish[j];
+
 				fishA->OnCollision(*fishB);
 				fishB->OnCollision(*fishA);
-				
-				//Resolve position
-				Fish::ResolveCollision(*fishA, *fishB);
-			}*/
+
+				colliderA->Collide(*colliderB);
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
 #include "FishSpawner.h"
+#include "Graphics.h"
 
 using namespace aquatic;
 
@@ -8,21 +9,28 @@ FishSpawner::FishSpawner()
     fish_count = 0;
 }
 
-FishSpawner& FishSpawner::AddFishType(int amount, Color color, int speed, Size size)
+FishSpawner& FishSpawner::AddFishType(FishInfo info)
 {
+    fish_count += info.amount;
+
+    _spawnInfo.emplace_back(info);
+
     return *this;
 }
 
 void FishSpawner::Generate(std::vector<Fish>& container)
 {
     container.clear();
+    container.reserve(fish_count);
 
-    int count = 0;
+    poscol::Vector2 start_position = { (float)Graphics::SCREEN_WIDTH / 2, (float)Graphics::SCREEN_HEIGHT / 2 };;
 
-    for (int i = 0; i < _spawnInfo.size(); i++)
+    for (const FishInfo& info : _spawnInfo)
     {
-        count += _spawnInfo[i].amount;
+        for (int i = 0; i < info.amount; i++)
+        {
+            container.emplace_back(aquatic::Fish(info.speed, info.color, info.name, info.size.width, info.size.height, start_position));
+        }
     }
 
-    container.reserve(fish_count);
 }

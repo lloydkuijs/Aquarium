@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Collider.h"
+#include "GameObject.h"
+
 
 namespace poscol
 {
@@ -13,10 +15,20 @@ namespace poscol
     {
     public:
         Size size;
+        RectangleCollider();
 
-        // Inherited via Collider
-        virtual void Update() override;
-        void Collide(RectangleCollider& collider);
+        // overload base functions
+        void Collide(RectangleCollider& collider) override;
+        bool IsColliding(RectangleCollider& collider) override;
+
+        float GetHeight() const;
+        float GetWidth() const;
+
+        float GetTop() const;
+        float GetLeft() const;
+        float GetRight() const;
+        float GetBottom() const;
+
     };
 };
 

@@ -2,11 +2,15 @@
 
 #include <iostream>
 
+
 /// <summary>
 /// Position and collision
 /// </summary>
 namespace poscol
 {
+	// Forward declaration
+	class RectangleCollider;
+
 	struct Vector2
 	{
 		float x, y;
@@ -33,18 +37,15 @@ namespace poscol
 
 	class Collider
 	{
-	protected:
-		void (*col_callback)(const Collider&);
-
 	public:
 		Vector2 position;
 		Vector2 velocity;
 
 		Collider();
-		virtual void Update() = 0;
-		virtual void Collide(Collider& collider2);
+
+		virtual bool IsColliding(RectangleCollider& collider) = 0;
+		virtual void Collide(RectangleCollider& collider) = 0;
 		virtual void Translate(Vector2 vector);
-		virtual void OnCollision(void(*onCollision)(const Collider&));
 	};
 
 };
