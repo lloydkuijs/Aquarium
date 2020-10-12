@@ -4,10 +4,6 @@
 #include "Graphics.h"
 #include "Game.h"
 
-void Test(const poscol::Collider& col)
-{
-
-}
 aquatic::Fish::Fish(float movementSpeed, Color color, const std::string& name, int width, int height, poscol::Vector2 start_position)
 {
     targetLocation = poscol::Vector2{ 0,0 };
